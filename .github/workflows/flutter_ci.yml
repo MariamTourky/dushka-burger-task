@@ -24,4 +24,4 @@ jobs:
         run: flutter analyze
 
       - name: Format check
-        run: flutter format --set-exit-if-changed .
+        run: dart format --set-exit-if-changed .
