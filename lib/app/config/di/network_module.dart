@@ -33,10 +33,10 @@ abstract class NetworkModule {
 
     return dio;
   }
+
   //
   // @lazySingleton
   // ApiClient apiClient(Dio dio) {
   //   return ApiClient(dio, baseUrl: AppEndpointString.baseUrl);
   // }
 }
-

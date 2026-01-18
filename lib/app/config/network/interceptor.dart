@@ -7,7 +7,10 @@ class AppInterceptor extends Interceptor {
   AppInterceptor(this.storage);
 
   @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) async {
+  void onRequest(
+    RequestOptions options,
+    RequestInterceptorHandler handler,
+  ) async {
     final guestId = await storage.getGuestId();
     if (guestId != null && guestId.isNotEmpty) {
       options.headers['Authorization'] = 'Basic $guestId';

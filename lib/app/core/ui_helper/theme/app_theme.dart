@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 import 'package:trust_develpoment/app/core/ui_helper/style/font_style.dart';
 
-
 class AppTheme {
   AppTheme._();
 
@@ -29,9 +28,7 @@ class AppTheme {
     cardTheme: CardThemeData(
       color: AppColors.surface,
       elevation: 2,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(12),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
     ),
 
     // Buttons
@@ -40,9 +37,7 @@ class AppTheme {
         backgroundColor: AppColors.primaryRed,
         foregroundColor: Colors.white,
         textStyle: AppTextStyles.button,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(10),
-        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       ),
     ),
 
