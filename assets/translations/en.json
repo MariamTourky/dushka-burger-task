@@ -1,1 +1,18 @@
-{}
+{
+  "home": "Home",
+  "profile": "Profile",
+  "menu": "Menu",
+  "offers": "Offers",
+  "no_products_available": "No products available now",
+  "product_details": "Product Details",
+  "back": "Back",
+  "add_to_cart": "Add to Cart",
+  "shopping_cart": "Shopping Cart",
+  "extras": "Extras",
+  "enter_coupon": "Enter your coupon",
+  "apply": "Apply",
+  "payment_details": "Payment Details",
+  "total_price": "Total Price",
+  "taxes": "Taxes",
+  "grand_total": "Grand Total"
+}
