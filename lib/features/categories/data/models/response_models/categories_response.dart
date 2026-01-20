@@ -1,6 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trust_develpoment/features/categories/data/models/response_models/product_response.dart';
-import 'package:trust_develpoment/features/categories/domain/entity_model/category_entity.dart';
+
 part 'categories_response.g.dart';
 
 @JsonSerializable()
@@ -32,15 +32,4 @@ class CategoriesResponse {
       _$CategoriesResponseFromJson(json);
 
   Map<String, dynamic> toJson() => _$CategoriesResponseToJson(this);
-}
-
-extension CategoriesResponseMapper on CategoriesResponse {
-  CategoryEntity toEntity() {
-    return CategoryEntity(
-      id: id ?? 0,
-      name: nameEn ?? nameAr ?? '',
-      image: image ?? '',
-      products: (products ?? []).map((e) => e.toEntity()).toList(),
-    );
-  }
 }

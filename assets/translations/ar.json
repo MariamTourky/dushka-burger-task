@@ -1,1 +1,18 @@
-{}
+{
+  "home": "الرئيسية",
+  "profile": "الملف الشخصي",
+  "menu": "القائمة",
+  "offers": "العروض",
+  "no_products_available": "لا توجد منتجات متاحة حالياً",
+  "product_details": "تفاصيل المنتج",
+  "back": "رجوع",
+  "add_to_cart": "أضف إلى السلة",
+  "shopping_cart": "سلة المشتريات",
+  "extras": "الإضافات",
+  "enter_coupon": "ادخل كود الخصم",
+  "apply": "تطبيق",
+  "payment_details": "تفاصيل الدفع",
+  "total_price": "السعر الإجمالي",
+  "taxes": "الضرائب",
+  "grand_total": "المبلغ الإجمالي"
+}
