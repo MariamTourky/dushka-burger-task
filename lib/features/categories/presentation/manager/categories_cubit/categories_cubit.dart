@@ -1,7 +1,7 @@
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:trust_develpoment/app/config/base_state/base_state.dart';
-import 'package:trust_develpoment/features/categories/presentation/manager/categories_state.dart';
+import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_state.dart';
 import 'package:trust_develpoment/features/categories/domain/usecase/get_categories_usecase.dart';
 import 'package:trust_develpoment/app/config/network/api_result.dart';
 import 'package:trust_develpoment/features/categories/domain/entity_model/category_entity.dart';

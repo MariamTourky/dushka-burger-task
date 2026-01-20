@@ -3,10 +3,10 @@ import 'package:trust_develpoment/features/categories/domain/entity_model/addons
 import 'package:trust_develpoment/features/categories/domain/entity_model/addons_options_entity.dart';
 
 extension ProductAddonsMapper on ProductAddonsResponse {
-  List<AddonBlock> blocksToEntity() {
+  List<AddonBlockEntity> toEntity() {
     return blocks
         .map(
-          (b) => AddonBlock(
+          (b) => AddonBlockEntity(
             id: b.id,
             titleEn: b.titleEn,
             titleAr: b.titleAr,

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trust_develpoment/app/core/utils/app_list_shimmer.dart';
-import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit.dart';
-import 'package:trust_develpoment/features/categories/presentation/manager/categories_state.dart';
+import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_cubit.dart';
+import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_state.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/cart_floating_button.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/category_list.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/custom_navigation_bar.dart';

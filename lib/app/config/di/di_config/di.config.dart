@@ -23,8 +23,12 @@ import '../../../../features/categories/domain/repo_contract/categories_repo.dar
     as _i300;
 import '../../../../features/categories/domain/usecase/get_categories_usecase.dart'
     as _i1035;
-import '../../../../features/categories/presentation/manager/categories_cubit.dart'
-    as _i1019;
+import '../../../../features/categories/domain/usecase/get_product_details_usecase.dart'
+    as _i399;
+import '../../../../features/categories/domain/usecase/get_products_addons_usecase.dart'
+    as _i873;
+import '../../../../features/categories/presentation/manager/categories_cubit/categories_cubit.dart'
+    as _i786;
 import '../../network/api_manager/api_client.dart' as _i0;
 import '../../network/interceptor.dart' as _i1070;
 import '../../storage/guest_cart_storage.dart' as _i1019;
@@ -60,8 +64,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i1035.GetCategoriesUseCase>(
       () => _i1035.GetCategoriesUseCase(gh<_i300.CategoriesRepository>()),
     );
-    gh.factory<_i1019.CategoriesCubit>(
-      () => _i1019.CategoriesCubit(gh<_i1035.GetCategoriesUseCase>()),
+    gh.lazySingleton<_i873.GetProductAddonsUseCase>(
+      () => _i873.GetProductAddonsUseCase(gh<_i300.CategoriesRepository>()),
+    );
+    gh.lazySingleton<_i399.GetProductDetailsUseCase>(
+      () => _i399.GetProductDetailsUseCase(gh<_i300.CategoriesRepository>()),
+    );
+    gh.factory<_i786.CategoriesCubit>(
+      () => _i786.CategoriesCubit(gh<_i1035.GetCategoriesUseCase>()),
     );
     return this;
   }
