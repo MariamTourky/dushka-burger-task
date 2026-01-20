@@ -4,6 +4,8 @@ class ProductEntity {
   final String nameAr;
   final String price;
   final String image;
+  final String descriptionEn;
+  final String descriptionAr;
 
   const ProductEntity({
     required this.id,
@@ -11,9 +13,11 @@ class ProductEntity {
     required this.nameAr,
     required this.price,
     required this.image,
+    required this.descriptionEn,
+    required this.descriptionAr,
   });
 
-  String dataByLocale(String locale) {
-    return locale == 'ar' ? nameAr : nameEn;
-  }
+  String dataByLocale(String locale) => locale == 'ar' ? nameAr : nameEn;
+  String descriptionByLocale(String locale) =>
+      locale == 'ar' ? descriptionAr : descriptionEn;
 }

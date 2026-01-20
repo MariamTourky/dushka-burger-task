@@ -5,20 +5,28 @@ part 'product_response.g.dart';
 class ProductResponse {
   @JsonKey(name: "id")
   final int? id;
-
   @JsonKey(name: "name_en")
   final String? nameEn;
-
   @JsonKey(name: "name_ar")
   final String? nameAr;
-
   @JsonKey(name: "price")
   final String? price;
-
   @JsonKey(name: "image")
   final String? image;
+  @JsonKey(name: "description_en")
+  final String? descriptionEn;
+  @JsonKey(name: "description_ar")
+  final String? descriptionAr;
 
-  ProductResponse({this.id, this.nameEn, this.nameAr, this.price, this.image});
+  ProductResponse({
+    this.id,
+    this.nameEn,
+    this.nameAr,
+    this.price,
+    this.image,
+    this.descriptionEn,
+    this.descriptionAr,
+  });
 
   factory ProductResponse.fromJson(Map<String, dynamic> json) =>
       _$ProductResponseFromJson(json);
