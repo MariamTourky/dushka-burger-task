@@ -8,7 +8,6 @@ part of 'addons_options_response.dart';
 
 AddonOptionResponse _$AddonOptionResponseFromJson(Map<String, dynamic> json) =>
     AddonOptionResponse(
-      id: (json['id'] as num).toInt(),
       label: json['label'] as String,
       labelAr: json['label_ar'] as String,
       selectedByDefault: json['selected_by_default'] as bool,
@@ -17,7 +16,6 @@ AddonOptionResponse _$AddonOptionResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AddonOptionResponseToJson(
   AddonOptionResponse instance,
 ) => <String, dynamic>{
-  'id': instance.id,
   'label': instance.label,
   'label_ar': instance.labelAr,
   'selected_by_default': instance.selectedByDefault,

@@ -5,24 +5,28 @@ import 'package:trust_develpoment/features/categories/domain/entity_model/addons
 extension ProductAddonsMapper on ProductAddonsResponse {
   List<AddonBlockEntity> toEntity() {
     return blocks.map((block) {
-      final options = block.addons
-          .expand(
-            (addon) => addon.options.map(
-              (o) => AddonOption(
-                id: o.id,
-                labelEn: o.label,
-                labelAr: o.labelAr,
-                selectedByDefault: o.selectedByDefault,
-              ),
-            ),
-          )
-          .toList();
       return AddonBlockEntity(
         id: block.id,
         titleEn: block.titleEn,
         titleAr: block.titleAr,
-        isMultiChoice: block.isMultiChoice,
-        options: options,
+        groups: block.addons.map((addon) {
+          return AddonGroupEntity(
+            id: addon.id,
+            titleEn: addon.titleEn,
+            titleAr: addon.titleAr,
+            isMultiChoice: addon.isMultiChoice,
+            options: addon.options.asMap().entries.map((e) {
+              final index = e.key;
+              final o = e.value;
+              return AddonOptionEntity(
+                id: index,
+                labelEn: o.label,
+                labelAr: o.labelAr,
+                selectedByDefault: o.selectedByDefault,
+              );
+            }).toList(),
+          );
+        }).toList(),
       );
     }).toList();
   }

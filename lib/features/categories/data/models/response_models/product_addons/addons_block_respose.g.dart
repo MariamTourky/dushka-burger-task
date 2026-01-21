@@ -9,9 +9,8 @@ part of 'addons_block_respose.dart';
 AddonBlockResponse _$AddonBlockResponseFromJson(Map<String, dynamic> json) =>
     AddonBlockResponse(
       id: int.parse(json['id'] as String),
-      titleEn: json['title'] as String,
-      titleAr: json['title_ar'] as String,
-      isMultiChoice: json['IsMultiChoise'] as bool,
+      titleEn: json['name'] as String,
+      titleAr: json['name_ar'] as String,
       addons: (json['addons'] as List<dynamic>)
           .map((e) => AddonResponse.fromJson(e as Map<String, dynamic>))
           .toList(),
@@ -20,8 +19,7 @@ AddonBlockResponse _$AddonBlockResponseFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$AddonBlockResponseToJson(AddonBlockResponse instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'title': instance.titleEn,
-      'title_ar': instance.titleAr,
-      'IsMultiChoise': instance.isMultiChoice,
+      'name': instance.titleEn,
+      'name_ar': instance.titleAr,
       'addons': instance.addons,
     };

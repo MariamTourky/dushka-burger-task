@@ -8,14 +8,11 @@ class AddonBlockResponse {
   @JsonKey(fromJson: int.parse)
   final int id;
 
-  @JsonKey(name: "title")
+  @JsonKey(name: "name")
   final String titleEn;
 
-  @JsonKey(name: "title_ar")
+  @JsonKey(name: "name_ar")
   final String titleAr;
-
-  @JsonKey(name: "IsMultiChoise")
-  final bool isMultiChoice;
 
   final List<AddonResponse> addons;
 
@@ -23,9 +20,9 @@ class AddonBlockResponse {
     required this.id,
     required this.titleEn,
     required this.titleAr,
-    required this.isMultiChoice,
     required this.addons,
   });
+
   factory AddonBlockResponse.fromJson(Map<String, dynamic> json) =>
       _$AddonBlockResponseFromJson(json);
   Map<String, dynamic> toJson() => _$AddonBlockResponseToJson(this);

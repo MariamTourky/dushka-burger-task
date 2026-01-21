@@ -1,4 +1,3 @@
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
@@ -20,33 +19,29 @@ class ProductDetailsPage extends StatelessWidget {
       builder: (context, state) {
         return SafeArea(
           child: Scaffold(
-            body: SafeArea(
-              child: Column(
-                children: [
-                  ProductDetailsHeader(
-                    itemCount: state.quantity,
-                  ), // always visible
-                  Expanded(
-                    child: state.product.isLoading
-                        ? const Center(
-                            child: CircularProgressIndicator(
-                              color: AppColors.darkRed,
-                            ),
-                          )
-                        : state.product.data == null
-                        ? const Center(child: Text("Product not found"))
-                        : ListView(
-                            padding: const EdgeInsets.all(16),
-                            children: [
-                              ProductInfoWidget(state: state),
-                              const SizedBox(height: 16),
-                              AddonsListWidget(state: state),
-                            ],
+            body: Column(
+              children: [
+                ProductDetailsHeader(itemCount: state.quantity),
+                Expanded(
+                  child: state.product.isLoading
+                      ? const Center(
+                          child: CircularProgressIndicator(
+                            color: AppColors.darkRed,
                           ),
-                  ),
-                  CustomElevatedButtonWidget(state: state), // always visible
-                ],
-              ),
+                        )
+                      : state.product.data == null
+                      ? const Center(child: Text("Product not found"))
+                      : ListView(
+                          padding: const EdgeInsets.all(16),
+                          children: [
+                            ProductInfoWidget(state: state),
+                            const SizedBox(height: 16),
+                            AddonsListWidget(state: state),
+                          ],
+                        ),
+                ),
+                CustomElevatedButtonWidget(state: state), // always visible
+              ],
             ),
           ),
         );
@@ -57,68 +52,89 @@ class ProductDetailsPage extends StatelessWidget {
 
 class AddonsListWidget extends StatelessWidget {
   final ProductDetailsState state;
+
   const AddonsListWidget({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
-    final locale = context.locale.languageCode;
-    final addonBlocks = state.addons.data ?? [];
+    final locale = Localizations.localeOf(context).languageCode;
+    final isArabic = locale == 'ar';
 
-    if (addonBlocks.isEmpty) return const SizedBox.shrink();
+    if (!state.addons.isSuccess || state.addons.data == null) {
+      return const SizedBox.shrink();
+    }
+
+    final blocks = state.addons.data!;
+    if (blocks.isEmpty) return const SizedBox.shrink();
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: addonBlocks.map((block) {
-        final blockTitle = locale == 'ar' ? block.titleAr : block.titleEn;
-
+      children: blocks.map((block) {
         return Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              blockTitle,
-              style: AppTextStyles.title.copyWith(fontWeight: FontWeight.bold),
+              isArabic ? block.titleAr : block.titleEn,
+              style: AppTextStyles.title,
             ),
             const SizedBox(height: 8),
-            Wrap(
-              spacing: 12,
-              runSpacing: 12,
-              children: block.options.map((option) {
-                final isSelected = state.selectedOptions[block.id] == option.id;
-                final label = locale == 'ar' ? option.labelAr : option.labelEn;
 
-                return GestureDetector(
-                  onTap: () => context.read<ProductDetailsCubit>().selectOption(
-                    block.id,
-                    option.id,
+            ...block.groups.map((group) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    isArabic ? group.titleAr : group.titleEn,
+                    style: AppTextStyles.title,
                   ),
-                  child: Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 8,
-                    ),
-                    decoration: BoxDecoration(
-                      color: isSelected
-                          ? AppColors.darkRed
-                          : Colors.transparent,
-                      border: Border.all(
-                        color: isSelected
-                            ? AppColors.darkRed
-                            : AppColors.divider,
+                  const SizedBox(height: 6),
+
+                  ...group.options.map((option) {
+                    final isSelected =
+                        state.selectedOptions[group.id] == option.id;
+
+                    return GestureDetector(
+                      behavior: HitTestBehavior.opaque,
+                      onTap: () {
+                        context.read<ProductDetailsCubit>().selectOption(
+                          group.id,
+                          option.id,
+                        );
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 6),
+                        child: Row(
+                          children: [
+                            Container(
+                              width: 20,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                border: Border.all(
+                                  color: AppColors.darkRed,
+                                  width: 2,
+                                ),
+                                color: isSelected
+                                    ? AppColors.darkRed
+                                    : Colors.transparent,
+                              ),
+                            ),
+                            const SizedBox(width: 12),
+                            Expanded(
+                              child: Text(
+                                isArabic ? option.labelAr : option.labelEn,
+                                style: AppTextStyles.bodyBold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      label,
-                      style: TextStyle(
-                        color: isSelected
-                            ? AppColors.surface
-                            : AppColors.textPrimary,
-                      ),
-                    ),
-                  ),
-                );
-              }).toList(),
-            ),
+                    );
+                  }),
+                  const SizedBox(height: 16),
+                ],
+              );
+            }),
             const SizedBox(height: 16),
           ],
         );

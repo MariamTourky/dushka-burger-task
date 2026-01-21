@@ -73,7 +73,7 @@ class AppTheme {
     // Dividers
     dividerTheme: const DividerThemeData(
       color: AppColors.divider,
-      thickness: 2,
+      thickness: 5,
     ),
 
     // Text

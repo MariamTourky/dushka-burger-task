@@ -24,15 +24,16 @@ class ProductInfoWidget extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: Image.network(
             product.image,
-            height: 200,
+            height: 250,
             width: double.infinity,
             fit: BoxFit.cover,
           ),
         ),
+        const SizedBox(height: 12),
         const Divider(),
         const SizedBox(height: 12),
         Text(productName, style: AppTextStyles.headlineMedium),
-        const SizedBox(height: 8),
+        const SizedBox(height: 12),
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -40,9 +41,16 @@ class ProductInfoWidget extends StatelessWidget {
             AddMinusRow(state: state),
           ],
         ),
+        const SizedBox(height: 12),
         const Divider(),
         const SizedBox(height: 12),
-        Text(productDiscription, style: AppTextStyles.body),
+        Text(
+          productDiscription,
+          style: AppTextStyles.body.copyWith(fontSize: 18),
+        ),
+        const SizedBox(height: 12),
+        const Divider(),
+        const SizedBox(height: 12),
       ],
     );
   }

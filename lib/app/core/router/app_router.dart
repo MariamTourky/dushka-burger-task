@@ -27,9 +27,7 @@ final GoRouter appRouter = GoRouter(
         if (productId == null) return const SizedBox();
 
         return BlocProvider(
-          create: (_) => getIt<ProductDetailsCubit>()
-            ..fetchProductDetails(productId)
-            ..fetchProductAddons(productId),
+          create: (_) => getIt<ProductDetailsCubit>()..loadProduct(productId),
           child: ProductDetailsPage(productId: productId),
         );
       },
