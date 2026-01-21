@@ -3,9 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 import 'package:trust_develpoment/app/core/ui_helper/style/font_style.dart';
-import 'package:trust_develpoment/app/core/widgets/custom_button.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_state.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/custom_elevated_button.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/page_header.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/product_info_widget.dart';
 
@@ -44,7 +44,7 @@ class ProductDetailsPage extends StatelessWidget {
                             ],
                           ),
                   ),
-                  AddToCartButtonWidget(state: state), // always visible
+                  CustomElevatedButtonWidget(state: state), // always visible
                 ],
               ),
             ),
@@ -123,26 +123,6 @@ class AddonsListWidget extends StatelessWidget {
           ],
         );
       }).toList(),
-    );
-  }
-}
-
-class AddToCartButtonWidget extends StatelessWidget {
-  final ProductDetailsState state;
-  const AddToCartButtonWidget({super.key, required this.state});
-
-  @override
-  Widget build(BuildContext context) {
-    final isEnabled = state.quantity > 0;
-
-    return Padding(
-      padding: const EdgeInsets.all(16),
-      child: CustomButton(
-        isEnabled: isEnabled,
-        isLoading: false,
-        text: "Add To Cart",
-        onPressed: () => {},
-      ),
     );
   }
 }

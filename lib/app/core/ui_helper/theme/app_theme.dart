@@ -33,19 +33,26 @@ class AppTheme {
 
     // Buttons
     elevatedButtonTheme: ElevatedButtonThemeData(
-      style: ElevatedButton.styleFrom(
-        backgroundColor: AppColors.primaryRed,
-        foregroundColor: Colors.white,
-        textStyle: AppTextStyles.button,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      style: ButtonStyle(
+        backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
+          if (states.contains(WidgetState.disabled)) {
+            return AppColors.disabled;
+          }
+          return AppColors.darkRed;
+        }),
+        foregroundColor: WidgetStateProperty.all(Colors.white),
+        textStyle: WidgetStateProperty.all(AppTextStyles.button),
+        shape: WidgetStateProperty.all(
+          RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        ),
       ),
     ),
 
     // Bottom Navigation
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-      selectedItemColor: AppColors.bottomNavSelected,
-      unselectedItemColor: AppColors.black,
-      backgroundColor: AppColors.surface,
+      selectedItemColor: AppColors.darkRed,
+      unselectedItemColor: AppColors.textSecondary,
+      backgroundColor: AppColors.appBackground,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
       showUnselectedLabels: true,
@@ -66,7 +73,7 @@ class AppTheme {
     // Dividers
     dividerTheme: const DividerThemeData(
       color: AppColors.divider,
-      thickness: 1,
+      thickness: 2,
     ),
 
     // Text
