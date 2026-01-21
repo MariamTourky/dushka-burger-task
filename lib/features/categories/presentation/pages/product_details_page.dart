@@ -6,7 +6,8 @@ import 'package:trust_develpoment/app/core/ui_helper/style/font_style.dart';
 import 'package:trust_develpoment/app/core/widgets/custom_button.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_state.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/cart_floating_button.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/page_header.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/product_info_widget.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final int productId;
@@ -50,127 +51,6 @@ class ProductDetailsPage extends StatelessWidget {
           ),
         );
       },
-    );
-  }
-}
-
-class ProductDetailsHeader extends StatelessWidget {
-  final int itemCount;
-  const ProductDetailsHeader({super.key, required this.itemCount});
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          GestureDetector(
-            onTap: () => Navigator.pop(context),
-            child: Row(
-              children: [
-                const Icon(Icons.arrow_back, color: AppColors.textPrimary),
-                const SizedBox(width: 4),
-                Text(
-                  "Back",
-                  style: AppTextStyles.title.copyWith(
-                    color: AppColors.textPrimary,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          CartFloatingButton(itemCount: itemCount),
-        ],
-      ),
-    );
-  }
-}
-
-class ProductInfoWidget extends StatelessWidget {
-  final ProductDetailsState state;
-  const ProductInfoWidget({super.key, required this.state});
-
-  @override
-  Widget build(BuildContext context) {
-    final product = state.product.data!;
-    final locale = context.locale.languageCode;
-    final productName = locale == 'ar' ? product.nameAr : product.nameEn;
-
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ClipRRect(
-          borderRadius: BorderRadius.circular(12),
-          child: Image.network(
-            product.image,
-            height: 200,
-            width: double.infinity,
-            fit: BoxFit.cover,
-          ),
-        ),
-        const SizedBox(height: 12),
-        Text(productName, style: AppTextStyles.headlineMedium),
-        const SizedBox(height: 8),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text('${product.price} EP', style: AppTextStyles.price),
-            Row(
-              children: [
-                GestureDetector(
-                  onTap: () =>
-                      context.read<ProductDetailsCubit>().decrementQuantity(),
-                  child: CircleIconButton(
-                    icon: Icons.remove,
-                    isEnabled: state.quantity > 0,
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Text('${state.quantity}', style: AppTextStyles.headlineMedium),
-                const SizedBox(width: 8),
-                GestureDetector(
-                  onTap: () =>
-                      context.read<ProductDetailsCubit>().incrementQuantity(),
-                  child: const CircleIconButton(
-                    icon: Icons.add,
-                    isEnabled: true,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-        const SizedBox(height: 12),
-        Text(
-          locale == 'ar' ? product.descriptionAr : product.descriptionEn,
-          style: AppTextStyles.body,
-        ),
-      ],
-    );
-  }
-}
-
-class CircleIconButton extends StatelessWidget {
-  final IconData icon;
-  final bool isEnabled;
-
-  const CircleIconButton({
-    super.key,
-    required this.icon,
-    required this.isEnabled,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      width: 32,
-      height: 32,
-      decoration: BoxDecoration(
-        color: isEnabled ? AppColors.darkRed : AppColors.disabled,
-        shape: BoxShape.circle,
-      ),
-      child: Icon(icon, color: AppColors.surface, size: 20),
     );
   }
 }

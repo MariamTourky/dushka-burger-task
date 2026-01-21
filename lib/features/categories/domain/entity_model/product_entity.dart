@@ -19,5 +19,5 @@ class ProductEntity {
   String descriptionByLocale(String locale) =>
       locale == 'ar' ? descriptionAr : descriptionEn;
   String coinsByLocal(String locale) =>
-      locale == 'ar' ? " ج.م$price} " : "$price E.P";
+      locale == 'ar' ? " $price ج.م " : "$price E.P";
 }

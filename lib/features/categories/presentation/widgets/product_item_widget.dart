@@ -46,7 +46,12 @@ class ProductItemWidget extends StatelessWidget {
             style: AppTextStyles.priceSmall,
           ),
         ),
-        trailing: AddToCartIcon(onTap: () {}),
+        trailing: CustomIcon(
+          onTap: () {},
+          // () => context.read<ProductDetailsCubit>().incrementQuantity(),
+          icon: Icons.add,
+          isEnabled: true,
+        ),
       ),
     );
   }
