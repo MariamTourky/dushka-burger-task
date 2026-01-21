@@ -13,6 +13,22 @@ import 'package:dio/dio.dart' as _i361;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
 
+import '../../../../features/cart/api/cart_remote_datasource_impl.dart'
+    as _i394;
+import '../../../../features/cart/data/datasource/cart_remote_datasource_contract.dart'
+    as _i486;
+import '../../../../features/cart/data/repo_impl/cart_repository_impl.dart'
+    as _i907;
+import '../../../../features/cart/domain/repo_contract/cart_repo_contract.dart'
+    as _i664;
+import '../../../../features/cart/domain/usecase/add_to_cart_usecase.dart'
+    as _i60;
+import '../../../../features/cart/domain/usecase/delete_from_cart_usecase.dart'
+    as _i712;
+import '../../../../features/cart/domain/usecase/get_cart_usecase.dart'
+    as _i955;
+import '../../../../features/cart/domain/usecase/get_guest_id_usecase.dart'
+    as _i728;
 import '../../../../features/categories/api/datasource_impl/categories_remote_datasource_impl.dart'
     as _i299;
 import '../../../../features/categories/data/datasource_contract/categories_remote_datasource.dart'
@@ -56,8 +72,32 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i0.ApiClient>(
       () => networkModule.apiClient(gh<_i361.Dio>()),
     );
+    gh.lazySingleton<_i486.CartRemoteDatasourceContract>(
+      () => _i394.CartRemoteDatasourceImpl(
+        gh<_i0.ApiClient>(),
+        gh<_i1019.GuestCartStorage>(),
+      ),
+    );
+    gh.lazySingleton<_i664.CartRepository>(
+      () => _i907.CartRepositoryImpl(
+        gh<_i486.CartRemoteDatasourceContract>(),
+        gh<_i1019.GuestCartStorage>(),
+      ),
+    );
     gh.lazySingleton<_i289.CategoriesRemoteDatasource>(
       () => _i299.CategoriesRemoteDatasourceImpl(gh<_i0.ApiClient>()),
+    );
+    gh.lazySingleton<_i60.AddToCartUseCase>(
+      () => _i60.AddToCartUseCase(gh<_i664.CartRepository>()),
+    );
+    gh.lazySingleton<_i712.DeleteFromCartUseCase>(
+      () => _i712.DeleteFromCartUseCase(gh<_i664.CartRepository>()),
+    );
+    gh.lazySingleton<_i955.GetCartUseCase>(
+      () => _i955.GetCartUseCase(gh<_i664.CartRepository>()),
+    );
+    gh.lazySingleton<_i728.GetGuestIdUseCase>(
+      () => _i728.GetGuestIdUseCase(gh<_i664.CartRepository>()),
     );
     gh.lazySingleton<_i300.CategoriesRepository>(
       () =>

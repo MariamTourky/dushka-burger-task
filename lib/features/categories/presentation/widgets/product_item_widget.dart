@@ -5,7 +5,7 @@ import 'package:trust_develpoment/app/core/router/route_names.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 import 'package:trust_develpoment/app/core/ui_helper/style/font_style.dart';
 import 'package:trust_develpoment/features/categories/domain/entity_model/product_entity.dart';
-import 'package:trust_develpoment/app/core/utils/add_to_cart_icon.dart';
+import 'package:trust_develpoment/app/core/utils/custom_icon.dart';
 
 class ProductItemWidget extends StatelessWidget {
   final ProductEntity product;

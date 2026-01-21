@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trust_develpoment/app/core/ui_helper/style/font_style.dart';
-import 'package:trust_develpoment/app/core/utils/add_to_cart_icon.dart';
+import 'package:trust_develpoment/app/core/utils/custom_icon.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_state.dart';
 

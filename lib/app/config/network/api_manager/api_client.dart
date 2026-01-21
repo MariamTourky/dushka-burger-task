@@ -1,6 +1,10 @@
 import 'package:retrofit/retrofit.dart';
 import 'package:trust_develpoment/app/core/values/app_endpoint_strings.dart';
 import 'package:dio/dio.dart';
+import 'package:trust_develpoment/features/cart/data/models/request_models/add_to_cart_request.dart';
+import 'package:trust_develpoment/features/cart/data/models/request_models/delete_from_cart_request.dart';
+import 'package:trust_develpoment/features/cart/data/models/response_model/cart_response.dart';
+import 'package:trust_develpoment/features/cart/data/models/response_model/guest_id_response.dart';
 import 'package:trust_develpoment/features/categories/data/models/response_models/categories/categories_response.dart';
 import 'package:trust_develpoment/features/categories/data/models/response_models/product_addons/product_addons_response.dart';
 import 'package:trust_develpoment/features/categories/data/models/response_models/product_details/product_response.dart';
@@ -23,4 +27,16 @@ abstract class ApiClient {
   Future<HttpResponse<ProductAddonsResponse>> getProductAddons(
     @Query("product_id2") int productId,
   );
+  // CART
+  @GET(AppEndpointString.guestId)
+  Future<HttpResponse<GuestIdResponse>> getGuestId();
+
+  @GET(AppEndpointString.guestId)
+  Future<HttpResponse<CartResponse>> getCart(@Query("guest_id") String guestId);
+
+  @POST(AppEndpointString.guestCart)
+  Future<HttpResponse<void>> addToCart(@Body() AddToCartRequest body);
+
+  @DELETE(AppEndpointString.guestCart)
+  Future<HttpResponse<void>> deleteFromCart(@Body() DeleteFromCartRequest body);
 }
