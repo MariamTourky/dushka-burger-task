@@ -29,6 +29,8 @@ import '../../../../features/categories/domain/usecase/get_products_addons_useca
     as _i873;
 import '../../../../features/categories/presentation/manager/categories_cubit/categories_cubit.dart'
     as _i786;
+import '../../../../features/categories/presentation/manager/product_details_cubit/product_details_cubit.dart'
+    as _i219;
 import '../../network/api_manager/api_client.dart' as _i0;
 import '../../network/interceptor.dart' as _i1070;
 import '../../storage/guest_cart_storage.dart' as _i1019;
@@ -72,6 +74,12 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i786.CategoriesCubit>(
       () => _i786.CategoriesCubit(gh<_i1035.GetCategoriesUseCase>()),
+    );
+    gh.factory<_i219.ProductDetailsCubit>(
+      () => _i219.ProductDetailsCubit(
+        gh<_i399.GetProductDetailsUseCase>(),
+        gh<_i873.GetProductAddonsUseCase>(),
+      ),
     );
     return this;
   }

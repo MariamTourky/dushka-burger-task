@@ -6,7 +6,6 @@ class ProductEntity {
   final String image;
   final String descriptionEn;
   final String descriptionAr;
-
   const ProductEntity({
     required this.id,
     required this.nameEn,
@@ -16,8 +15,9 @@ class ProductEntity {
     required this.descriptionEn,
     required this.descriptionAr,
   });
-
   String dataByLocale(String locale) => locale == 'ar' ? nameAr : nameEn;
   String descriptionByLocale(String locale) =>
       locale == 'ar' ? descriptionAr : descriptionEn;
+  String coinsByLocal(String locale) =>
+      locale == 'ar' ? " ج.م$price} " : "$price E.P";
 }

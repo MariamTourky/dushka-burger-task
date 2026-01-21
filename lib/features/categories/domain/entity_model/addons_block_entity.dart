@@ -6,7 +6,6 @@ class AddonBlockEntity {
   final String titleAr;
   final bool isMultiChoice;
   final List<AddonOption> options;
-
   AddonBlockEntity({
     required this.id,
     required this.titleEn,

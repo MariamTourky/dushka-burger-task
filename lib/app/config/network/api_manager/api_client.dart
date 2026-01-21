@@ -15,7 +15,7 @@ abstract class ApiClient {
   Future<HttpResponse<List<CategoriesResponse>>> getCategories();
 
   @GET(AppEndpointString.productDetails)
-  Future<HttpResponse<ProductResponse>> getProductDetails(
+  Future<HttpResponse<List<ProductResponse>>> getProductDetails(
     @Query("product_id") int productId,
   );
 

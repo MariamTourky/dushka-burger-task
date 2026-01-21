@@ -19,7 +19,7 @@ class CategoriesRemoteDatasourceImpl implements CategoriesRemoteDatasource {
   }
 
   @override
-  Future<ApiResult<ProductResponse>> getProductDetails(int productId) {
+  Future<ApiResult<List<ProductResponse>>> getProductDetails(int productId) {
     return safeApiCall(call: () => apiClient.getProductDetails(productId));
   }
 

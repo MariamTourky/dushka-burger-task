@@ -39,11 +39,15 @@ class CategoriesRepositoryImpl implements CategoriesRepository {
   Future<ApiResult<ProductEntity>> getProductDetails(int productId) async {
     final result = await remoteDatasource.getProductDetails(productId);
 
-    if (result is SuccessApiResult<ProductResponse>) {
-      return SuccessApiResult(data: result.data.toEntity());
+    if (result is SuccessApiResult<List<ProductResponse>>) {
+      if (result.data.isEmpty) {
+        return ErrorApiResult(error: 'Product not found');
+      }
+
+      return SuccessApiResult(data: result.data.first.toEntity());
     }
 
-    if (result is ErrorApiResult<ProductResponse>) {
+    if (result is ErrorApiResult<List<ProductResponse>>) {
       return ErrorApiResult(error: result.error);
     }
 

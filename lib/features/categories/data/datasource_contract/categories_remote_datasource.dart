@@ -5,6 +5,6 @@ import 'package:trust_develpoment/features/categories/data/models/response_model
 
 abstract class CategoriesRemoteDatasource {
   Future<ApiResult<List<CategoriesResponse>>> getCategories();
-  Future<ApiResult<ProductResponse>> getProductDetails(int productId);
+  Future<ApiResult<List<ProductResponse>>> getProductDetails(int productId);
   Future<ApiResult<ProductAddonsResponse>> getProductAddons(int productId);
 }
