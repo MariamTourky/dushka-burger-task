@@ -6,11 +6,11 @@ part 'add_to_cart_request.g.dart';
 @JsonSerializable()
 class AddToCartRequest {
   @JsonKey(name: "guest_id")
-  final String guestId;
+  final String? guestId;
+  @JsonKey(name: "items")
+  final List<CartItemRequest>? items;
 
-  final List<CartItemRequest> items;
-
-  AddToCartRequest({required this.guestId, required this.items});
+  AddToCartRequest({this.guestId, this.items});
 
   Map<String, dynamic> toJson() => _$AddToCartRequestToJson(this);
 }

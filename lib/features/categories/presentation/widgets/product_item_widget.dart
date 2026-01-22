@@ -1,11 +1,9 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trust_develpoment/app/core/router/route_names.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 import 'package:trust_develpoment/app/core/ui_helper/style/font_style.dart';
-import 'package:trust_develpoment/features/cart/presentation/manager/cart_cubit.dart';
 import 'package:trust_develpoment/features/categories/domain/entity_model/product_entity.dart';
 import 'package:trust_develpoment/app/core/utils/custom_icon.dart';
 
@@ -59,8 +57,9 @@ class ProductItemWidget extends StatelessWidget {
                 icon: Icons.add,
                 isEnabled: true,
                 onTap: () {
-                  final cubit = context.read<CartCubit>();
-                  cubit.addItem(product.id);
+                  context.push(
+                    '${RouteName.productDetails}?id=${product.id}&quantity=1',
+                  );
                 },
               ),
             ],

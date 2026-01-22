@@ -1,14 +1,14 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'cart_item_request.dart';
+part of 'addon_item_request.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-Map<String, dynamic> _$CartItemRequestToJson(CartItemRequest instance) =>
+Map<String, dynamic> _$AddonItemRequestToJson(AddonItemRequest instance) =>
     <String, dynamic>{
-      'product_id': instance.productId,
-      'quantity': instance.quantity,
-      'addons': instance.addons,
+      'id': instance.id,
+      'name': instance.name,
+      'price': instance.price,
     };

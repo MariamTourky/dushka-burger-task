@@ -46,7 +46,7 @@ class CartPage extends StatelessWidget {
                       icon: Icons.add,
                       isEnabled: true,
                       onTap: () {
-                        context.read<CartCubit>().addItem(item.productId);
+                        // context.read<CartCubit>().addItem(item.productId);
                       },
                     ),
                   ],

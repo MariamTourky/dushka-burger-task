@@ -1,7 +1,10 @@
 import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:trust_develpoment/app/config/base_state/base_state.dart';
+import 'package:trust_develpoment/features/cart/domain/entity/add_to_cart_entity.dart';
+import 'package:trust_develpoment/features/cart/domain/entity/addon_item_added_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_entity.dart';
+import 'package:trust_develpoment/features/cart/domain/entity/cart_item_added_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/add_to_cart_usecase.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/delete_from_cart_usecase.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/get_cart_usecase.dart';
@@ -34,8 +37,24 @@ class CartCubit extends Cubit<CartState> {
     }
   }
 
-  Future<void> addItem(int productId, {int quantity = 1}) async {
-    final result = await addToCart(productId: productId, quantity: quantity);
+  Future<void> addItem({
+    required int productId,
+    required int quantity,
+    required List<AddonItemAddedEntity> addons,
+  }) async {
+    final entity = AddToCartEntity(
+      guestId: '',
+      items: [
+        CartItemAddedEntity(
+          productId: productId,
+          quantity: quantity,
+          addons: addons,
+        ),
+      ],
+    );
+
+    final result = await addToCart(entity);
+
     if (result is SuccessApiResult) {
       await refreshCart();
     }

@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trust_develpoment/app/core/router/route_names.dart';
-import 'package:trust_develpoment/features/cart/presentation/manager/cart_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_state.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_validation.dart';
@@ -16,8 +15,13 @@ import 'package:trust_develpoment/generated/locale_keys.g.dart';
 
 class ProductDetailsPage extends StatelessWidget {
   final int productId;
+  final int initialQuantity;
 
-  const ProductDetailsPage({super.key, required this.productId});
+  const ProductDetailsPage({
+    super.key,
+    required this.productId,
+    this.initialQuantity = 0,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -48,11 +52,10 @@ class ProductDetailsPage extends StatelessWidget {
                 CustomElevatedButtonWidget(
                   text: LocaleKeys.add_to_cart.tr(),
                   enabled: isButtonEnabled,
-                  onPressed: () {
-                    context.read<CartCubit>().addItem(
-                      state.product.data!.id,
-                      quantity: state.quantity,
-                    );
+                  onPressed: () async {
+                    // final entity = state.toAddToCartEntity();
+                    // final result = await context.read<CartCubit>().addToCart(entity);
+
                     context.push(RouteName.viewCart);
                   },
                 ),

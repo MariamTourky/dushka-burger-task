@@ -27,9 +27,17 @@ final GoRouter appRouter = GoRouter(
         final productId = int.tryParse(state.uri.queryParameters['id'] ?? '');
         if (productId == null) return const SizedBox();
 
+        final initialQuantity =
+            int.tryParse(state.uri.queryParameters['quantity'] ?? '0') ?? 0;
+
         return BlocProvider(
-          create: (_) => getIt<ProductDetailsCubit>()..loadProduct(productId),
-          child: ProductDetailsPage(productId: productId),
+          create: (_) =>
+              getIt<ProductDetailsCubit>()
+                ..loadProduct(productId, initialQuantity: initialQuantity),
+          child: ProductDetailsPage(
+            productId: productId,
+            initialQuantity: initialQuantity,
+          ),
         );
       },
     ),

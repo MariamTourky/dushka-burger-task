@@ -2,10 +2,9 @@ import 'package:injectable/injectable.dart';
 import 'package:trust_develpoment/app/config/network/api_result.dart';
 import 'package:trust_develpoment/app/config/storage/guest_cart_storage.dart';
 import 'package:trust_develpoment/features/cart/data/datasource/cart_remote_datasource_contract.dart';
-import 'package:trust_develpoment/features/cart/data/models/request_models/add_to_cart_request.dart';
-import 'package:trust_develpoment/features/cart/data/models/request_models/cart_item_request.dart';
 import 'package:trust_develpoment/features/cart/data/models/request_models/delete_from_cart_request.dart';
 import 'package:trust_develpoment/features/cart/data/models/response_model/cart_response.dart';
+import 'package:trust_develpoment/features/cart/domain/entity/add_to_cart_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_item_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/repo_contract/cart_repo_contract.dart';
@@ -65,16 +64,16 @@ class CartRepositoryImpl implements CartRepository {
   }
 
   @override
-  Future<ApiResult<void>> addToCart(int productId, int quantity) async {
-    final guestId = await getGuestId();
-    if (guestId is ErrorApiResult) return guestId;
+  Future<ApiResult<void>> addToCart(AddToCartEntity entity) async {
+    final guestIdResult = await getGuestId();
+    if (guestIdResult is ErrorApiResult) return guestIdResult;
 
-    return remote.addToCart(
-      AddToCartRequest(
-        guestId: (guestId as SuccessApiResult).data,
-        items: [CartItemRequest(productId: productId, quantity: quantity)],
-      ),
+    final entityWithGuest = AddToCartEntity(
+      guestId: (guestIdResult as SuccessApiResult<String>).data,
+      items: entity.items,
     );
+
+    return remote.addToCart(entityWithGuest.toRequest());
   }
 
   @override

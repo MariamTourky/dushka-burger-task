@@ -16,7 +16,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   ProductDetailsCubit(this.getProductDetails, this.getProductAddons)
     : super(ProductDetailsState.initial());
 
-  Future<void> loadProduct(int productId) async {
+  Future<void> loadProduct(int productId, {int initialQuantity = 0}) async {
+    emit(state.copyWith(quantity: initialQuantity));
+
     await Future.wait([
       fetchProductDetails(productId),
       fetchProductAddons(productId),
