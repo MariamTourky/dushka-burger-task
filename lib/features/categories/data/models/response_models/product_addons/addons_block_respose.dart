@@ -9,17 +9,13 @@ class AddonBlockResponse {
   final int id;
 
   @JsonKey(name: "name")
-  final String titleEn;
-
-  @JsonKey(name: "name_ar")
-  final String titleAr;
+  final String name;
 
   final List<AddonResponse> addons;
 
   AddonBlockResponse({
     required this.id,
-    required this.titleEn,
-    required this.titleAr,
+    required this.name,
     required this.addons,
   });
 

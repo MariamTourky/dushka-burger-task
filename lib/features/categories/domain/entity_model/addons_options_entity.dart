@@ -11,5 +11,5 @@ class AddonOptionEntity {
     required this.selectedByDefault,
   });
 
-  String dataByLocale(String locale) => locale == 'ar' ? labelAr : labelEn;
+  String labelByLocale(String locale) => locale == 'ar' ? labelAr : labelEn;
 }

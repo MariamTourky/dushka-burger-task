@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trust_develpoment/app/core/utils/app_list_shimmer.dart';
+import 'package:trust_develpoment/features/cart/presentation/manager/cart_cubit.dart';
+import 'package:trust_develpoment/features/cart/presentation/manager/cart_state.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_state.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/cart_floating_button.dart';
@@ -53,7 +55,12 @@ class CategoriesPage extends StatelessWidget {
               ],
             ),
             bottomNavigationBar: const CustomBottomNavigationBar(),
-            floatingActionButton: const CartFloatingButton(itemCount: 3),
+            floatingActionButton: BlocBuilder<CartCubit, CartState>(
+              builder: (context, state) {
+                final itemCount = state.itemCount;
+                return CartFloatingButton(itemCount: itemCount);
+              },
+            ),
             floatingActionButtonLocation:
                 FloatingActionButtonLocation.centerDocked,
           ),

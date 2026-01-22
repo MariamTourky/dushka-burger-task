@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 
 class BadgeContainer extends StatelessWidget {
-  const BadgeContainer({super.key, required this.itemCount});
-
   final int itemCount;
+
+  const BadgeContainer({super.key, required this.itemCount}); // remove const
 
   @override
   Widget build(BuildContext context) {

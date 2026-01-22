@@ -1,5 +1,6 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:trust_develpoment/features/categories/data/models/response_models/product_addons/addons_options_response.dart';
+import 'package:trust_develpoment/features/categories/data/models/response_models/product_addons/min_max_response.dart';
 
 part 'addons_response.g.dart';
 
@@ -13,6 +14,10 @@ class AddonResponse {
 
   @JsonKey(name: "title_ar")
   final String titleAr;
+  @JsonKey(name: "min_max_rules")
+  final MinMaxRulesResponse? minMaxRules;
+  @JsonKey(name: "required")
+  final bool? required;
 
   @JsonKey(name: "IsMultiChoise")
   final bool isMultiChoice;
@@ -23,6 +28,8 @@ class AddonResponse {
     required this.id,
     required this.titleEn,
     required this.titleAr,
+    this.minMaxRules,
+    this.required,
     required this.isMultiChoice,
     required this.options,
   });

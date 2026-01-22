@@ -7,8 +7,6 @@ class ProductDetailsState extends Equatable {
   final Resource<ProductEntity> product;
   final Resource<List<AddonBlockEntity>> addons;
   final int quantity;
-
-  /// blockId -> selected optionId (nullable if no selection)
   final Map<int, int?> selectedOptions;
 
   const ProductDetailsState({
@@ -22,7 +20,7 @@ class ProductDetailsState extends Equatable {
     product: Resource.initial(),
     addons: Resource.initial(),
     quantity: 0,
-    selectedOptions: const {},
+    selectedOptions: {},
   );
 
   ProductDetailsState copyWith({

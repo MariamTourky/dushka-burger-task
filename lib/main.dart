@@ -1,20 +1,26 @@
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:trust_develpoment/app/config/di/di_config/di.dart';
 import 'package:trust_develpoment/app/core/router/app_router.dart';
 import 'package:trust_develpoment/app/core/ui_helper/theme/app_theme.dart';
+import 'package:trust_develpoment/features/cart/presentation/manager/cart_cubit.dart';
 
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await EasyLocalization.ensureInitialized();
   configureDependencies();
+
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en'), Locale('ar')],
       path: 'assets/translations',
       fallbackLocale: const Locale('ar'),
       startLocale: const Locale('ar'),
-      child: const MyApp(),
+      child: BlocProvider(
+        create: (_) => getIt<CartCubit>(),
+        child: const MyApp(),
+      ),
     ),
   );
 }

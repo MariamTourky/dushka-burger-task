@@ -11,11 +11,11 @@ class ProductInfoWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final product = state.product.data!;
-    final productName = product.dataByLocale(context.locale.languageCode);
-    final productDiscription = product.descriptionByLocale(
-      context.locale.languageCode,
-    );
-    final productPrice = product.coinsByLocal(context.locale.languageCode);
+    final lang = context.locale.languageCode;
+
+    final name = product.dataByLocale(lang);
+    final description = product.descriptionByLocale(lang).trim();
+    final price = product.coinsByLocal(lang);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -29,28 +29,28 @@ class ProductInfoWidget extends StatelessWidget {
             fit: BoxFit.cover,
           ),
         ),
-        const SizedBox(height: 12),
-        const Divider(),
-        const SizedBox(height: 12),
-        Text(productName, style: AppTextStyles.headlineMedium),
-        const SizedBox(height: 12),
+        const SizedBox(height: 16),
+
+        Text(name, style: AppTextStyles.headlineMedium),
+
+        const SizedBox(height: 8),
+
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(productPrice, style: AppTextStyles.price),
+            Text(price, style: AppTextStyles.price),
             AddMinusRow(state: state),
           ],
         ),
-        const SizedBox(height: 12),
-        const Divider(),
-        const SizedBox(height: 12),
-        Text(
-          productDiscription,
-          style: AppTextStyles.body.copyWith(fontSize: 18),
-        ),
-        const SizedBox(height: 12),
-        const Divider(),
-        const SizedBox(height: 12),
+
+        if (description.isNotEmpty) ...[
+          const SizedBox(height: 24),
+          const Divider(),
+          const SizedBox(height: 16),
+          Text(description, style: AppTextStyles.body.copyWith(fontSize: 16)),
+          const SizedBox(height: 24),
+          const Divider(),
+        ],
       ],
     );
   }

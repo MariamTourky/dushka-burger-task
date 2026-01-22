@@ -27,7 +27,6 @@ abstract class ApiClient {
   Future<HttpResponse<ProductAddonsResponse>> getProductAddons(
     @Query("product_id2") int productId,
   );
-  // CART
   @GET(AppEndpointString.guestId)
   Future<HttpResponse<GuestIdResponse>> getGuestId();
 

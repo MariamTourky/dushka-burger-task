@@ -1,5 +1,4 @@
 import 'package:bloc/bloc.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:injectable/injectable.dart';
 import 'package:trust_develpoment/app/config/base_state/base_state.dart';
 import 'package:trust_develpoment/app/config/network/api_result.dart';
@@ -42,30 +41,9 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
     emit(state.copyWith(addons: Resource.loading()));
 
     final result = await getProductAddons(productId);
-    debugPrint('ADDONS RAW RESULT: ${result.runtimeType}');
 
     if (result is SuccessApiResult<List<AddonBlockEntity>>) {
-      debugPrint('ADDONS COUNT: ${result.data.length}');
-
-      final Map<int, int?> selected = {};
-
-      for (final block in result.data) {
-        for (final group in block.groups) {
-          final defaultOption = group.options
-              .where((o) => o.selectedByDefault)
-              .map((o) => o.id)
-              .firstOrNull;
-
-          selected[group.id] = defaultOption;
-        }
-      }
-
-      emit(
-        state.copyWith(
-          addons: Resource.success(result.data),
-          selectedOptions: selected,
-        ),
-      );
+      emit(state.copyWith(addons: Resource.success(result.data)));
     } else if (result is ErrorApiResult<List<AddonBlockEntity>>) {
       emit(state.copyWith(addons: Resource.error(result.error)));
     } else {

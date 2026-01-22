@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
+import 'package:trust_develpoment/app/core/router/route_names.dart';
 import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 import 'package:trust_develpoment/features/categories/presentation/widgets/badge_container.dart';
 
@@ -14,28 +16,17 @@ class CartFloatingButton extends StatelessWidget {
     return Stack(
       clipBehavior: Clip.none,
       children: [
-        Container(
-          width: 60,
-          height: 60,
-          decoration: BoxDecoration(
-            shape: BoxShape.circle,
-            color: hasItems ? AppColors.darkRed : AppColors.disabled,
-            boxShadow: [
-              BoxShadow(
-                color: Colors.black.withValues(alpha: 0.25),
-                blurRadius: 30,
-                spreadRadius: 3,
-                offset: const Offset(2, 10),
-              ),
-            ],
-          ),
-          child: Material(
-            color: Colors.transparent,
-            shape: const CircleBorder(),
-            child: InkWell(
-              customBorder: const CircleBorder(),
-              onTap: () {},
-              child: const Center(
+        Material(
+          shape: const CircleBorder(),
+          color: hasItems ? AppColors.darkRed : AppColors.disabled,
+          elevation: 8,
+          child: InkWell(
+            customBorder: const CircleBorder(),
+            onTap: hasItems ? () => context.push(RouteName.viewCart) : null,
+            child: const SizedBox(
+              width: 60,
+              height: 60,
+              child: Center(
                 child: Icon(
                   Icons.shopping_bag_rounded,
                   color: AppColors.surface,
@@ -45,7 +36,6 @@ class CartFloatingButton extends StatelessWidget {
             ),
           ),
         ),
-
         if (hasItems)
           Positioned(
             top: -4,

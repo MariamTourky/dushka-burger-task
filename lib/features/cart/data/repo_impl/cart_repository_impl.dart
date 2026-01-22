@@ -20,7 +20,9 @@ class CartRepositoryImpl implements CartRepository {
   @override
   Future<ApiResult<String>> getGuestId() async {
     final cached = await storage.getGuestId();
-    if (cached != null) return SuccessApiResult(data: cached);
+    if (cached != null) {
+      return SuccessApiResult(data: cached);
+    }
     return remote.getGuestId();
   }
 
@@ -32,8 +34,10 @@ class CartRepositoryImpl implements CartRepository {
     }
 
     final result = await remote.getCart(guestId);
+
     if (result is SuccessApiResult<CartResponse>) {
       final data = result.data;
+
       return SuccessApiResult(
         data: CartEntity(
           items:
@@ -51,6 +55,7 @@ class CartRepositoryImpl implements CartRepository {
                   .toList() ??
               [],
           totalItems: data.totalItems ?? 0,
+          totalPrice: data.totalPrice ?? "0",
           totalPriceWithTax: data.totalPriceWithTax ?? "0",
         ),
       );

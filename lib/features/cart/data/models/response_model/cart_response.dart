@@ -11,10 +11,18 @@ class CartResponse {
   @JsonKey(name: "total_items")
   final int? totalItems;
 
+  @JsonKey(name: "total_price")
+  final String? totalPrice;
+
   @JsonKey(name: "total_price_with_tax")
   final String? totalPriceWithTax;
 
-  CartResponse({this.items, this.totalItems, this.totalPriceWithTax});
+  CartResponse({
+    this.items,
+    this.totalItems,
+    this.totalPrice,
+    this.totalPriceWithTax,
+  });
 
   factory CartResponse.fromJson(Map<String, dynamic> json) =>
       _$CartResponseFromJson(json);

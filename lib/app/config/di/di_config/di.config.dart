@@ -29,6 +29,8 @@ import '../../../../features/cart/domain/usecase/get_cart_usecase.dart'
     as _i955;
 import '../../../../features/cart/domain/usecase/get_guest_id_usecase.dart'
     as _i728;
+import '../../../../features/cart/presentation/manager/cart_cubit.dart'
+    as _i354;
 import '../../../../features/categories/api/datasource_impl/categories_remote_datasource_impl.dart'
     as _i299;
 import '../../../../features/categories/data/datasource_contract/categories_remote_datasource.dart'
@@ -98,6 +100,14 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.lazySingleton<_i728.GetGuestIdUseCase>(
       () => _i728.GetGuestIdUseCase(gh<_i664.CartRepository>()),
+    );
+    gh.lazySingleton<_i354.CartCubit>(
+      () => _i354.CartCubit(
+        gh<_i728.GetGuestIdUseCase>(),
+        gh<_i955.GetCartUseCase>(),
+        gh<_i60.AddToCartUseCase>(),
+        gh<_i712.DeleteFromCartUseCase>(),
+      ),
     );
     gh.lazySingleton<_i300.CategoriesRepository>(
       () =>
