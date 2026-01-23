@@ -20,11 +20,11 @@ class ShimmerList extends StatelessWidget {
       scrollDirection: scrollDirection,
       padding: const EdgeInsets.all(16),
       itemCount: 5,
-      separatorBuilder: (_, __) => SizedBox(
+      separatorBuilder: (_, _) => SizedBox(
         width: scrollDirection == Axis.horizontal ? 12 : 0,
         height: scrollDirection == Axis.vertical ? 16 : 0,
       ),
-      itemBuilder: (_, __) => Shimmer.fromColors(
+      itemBuilder: (_, _) => Shimmer.fromColors(
         baseColor: AppColors.surface,
         highlightColor: AppColors.disabled,
         child: Container(

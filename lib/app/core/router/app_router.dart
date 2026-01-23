@@ -42,6 +42,6 @@ final GoRouter appRouter = GoRouter(
       },
     ),
 
-    GoRoute(path: RouteName.viewCart, builder: (_, __) => const CartPage()),
+    GoRoute(path: RouteName.viewCart, builder: (_, _) => const CartPage()),
   ],
 );

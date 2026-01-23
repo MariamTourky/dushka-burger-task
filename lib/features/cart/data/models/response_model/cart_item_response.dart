@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:trust_develpoment/features/cart/data/models/request_models/addon_item_request.dart';
 
 part 'cart_item_response.g.dart';
 
@@ -15,9 +16,8 @@ class CartItemResponse {
 
   final int quantity;
   final String price;
-
-  @JsonKey(name: "addon_price")
-  final num addonPrice;
+  @JsonKey(name: "addons")
+  final List<AddonItemCart>? addons;
 
   final String image;
   final String total;
@@ -28,7 +28,7 @@ class CartItemResponse {
     required this.productNameAr,
     required this.quantity,
     required this.price,
-    required this.addonPrice,
+    required this.addons,
     required this.image,
     required this.total,
   });

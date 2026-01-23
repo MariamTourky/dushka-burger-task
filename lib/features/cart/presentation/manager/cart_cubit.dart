@@ -2,9 +2,7 @@ import 'package:bloc/bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:trust_develpoment/app/config/base_state/base_state.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/add_to_cart_entity.dart';
-import 'package:trust_develpoment/features/cart/domain/entity/addon_item_added_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_entity.dart';
-import 'package:trust_develpoment/features/cart/domain/entity/cart_item_added_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/add_to_cart_usecase.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/delete_from_cart_usecase.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/get_cart_usecase.dart';
@@ -30,43 +28,73 @@ class CartCubit extends Cubit<CartState> {
   }
 
   Future<void> refreshCart() async {
+    emit(state.copyWith(cart: Resource.loading()));
+
     final result = await getCart();
     if (result is SuccessApiResult<CartEntity>) {
-      final updatedCart = result.data.copyWith();
-      emit(state.copyWith(cart: Resource.success(updatedCart)));
+      emit(state.copyWith(cart: Resource.success(result.data)));
     }
   }
 
-  Future<void> addItem({
-    required int productId,
-    required int quantity,
-    required List<AddonItemAddedEntity> addons,
-  }) async {
-    final entity = AddToCartEntity(
-      guestId: '',
-      items: [
-        CartItemAddedEntity(
-          productId: productId,
-          quantity: quantity,
-          addons: addons,
-        ),
-      ],
-    );
+  /// 🔥 OPTIMISTIC DELETE
+  Future<void> removeItem({required int productId, int quantity = 1}) async {
+    final currentCart = state.cart.data;
+    if (currentCart == null) return;
 
-    final result = await addToCart(entity);
+    final updatedItems = currentCart.items
+        .map((item) {
+          if (item.productId == productId) {
+            final newQty = item.quantity - quantity;
+            return item.copyWith(quantity: newQty);
+          }
+          return item;
+        })
+        .where((item) => item.quantity > 0)
+        .toList();
 
-    if (result is SuccessApiResult) {
-      await refreshCart();
-    }
-  }
+    final updatedCart = currentCart.copyWith(items: updatedItems);
 
-  Future<void> removeItem(int productId, {int quantity = 1}) async {
+    /// ✅ update UI immediately
+    emit(state.copyWith(cart: Resource.success(updatedCart)));
+
+    /// call API
     final result = await deleteFromCart(
       productId: productId,
       quantity: quantity,
     );
 
-    if (result is SuccessApiResult) {
+    /// optional: resync
+    if (result is! SuccessApiResult) {
+      await refreshCart();
+    }
+  }
+
+  /// 🔥 OPTIMISTIC ADD
+  Future<void> addItem(AddToCartEntity entity) async {
+    final currentCart = state.cart.data;
+
+    if (currentCart != null) {
+      final items = [...currentCart.items];
+
+      for (final newItem in entity.items) {
+        final index = items.indexWhere((e) => e.productId == newItem.productId);
+
+        if (index != -1) {
+          items[index] = items[index].copyWith(
+            quantity: items[index].quantity + newItem.quantity,
+          );
+        }
+      }
+
+      emit(
+        state.copyWith(
+          cart: Resource.success(currentCart.copyWith(items: items)),
+        ),
+      );
+    }
+
+    final result = await addToCart(entity);
+    if (result is! SuccessApiResult) {
       await refreshCart();
     }
   }

@@ -30,7 +30,7 @@ abstract class ApiClient {
   @GET(AppEndpointString.guestId)
   Future<HttpResponse<GuestIdResponse>> getGuestId();
 
-  @GET(AppEndpointString.guestId)
+  @GET(AppEndpointString.guestCart)
   Future<HttpResponse<CartResponse>> getCart(@Query("guest_id") String guestId);
 
   @POST(AppEndpointString.guestCart)

@@ -20,7 +20,7 @@ class CategoryList extends StatelessWidget {
       scrollDirection: Axis.horizontal,
       padding: const EdgeInsets.all(16),
       itemCount: categories.length,
-      separatorBuilder: (_, __) => const SizedBox(width: 12),
+      separatorBuilder: (_, _) => const SizedBox(width: 12),
       itemBuilder: (context, index) {
         final category = categories[index];
         return CategoryItem(

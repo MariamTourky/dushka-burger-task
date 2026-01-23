@@ -1,3 +1,4 @@
+import 'package:trust_develpoment/features/cart/data/models/response_model/cart_response.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_item_entity.dart';
 
 class CartEntity {
@@ -6,7 +7,7 @@ class CartEntity {
   final String totalPrice;
   final String totalPriceWithTax;
 
-  CartEntity({
+  const CartEntity({
     required this.items,
     required this.totalItems,
     required this.totalPrice,
@@ -24,6 +25,17 @@ class CartEntity {
       totalItems: totalItems ?? this.totalItems,
       totalPrice: totalPrice ?? this.totalPrice,
       totalPriceWithTax: totalPriceWithTax ?? this.totalPriceWithTax,
+    );
+  }
+}
+
+extension CartResponseMapper on CartResponse {
+  CartEntity toEntity() {
+    return CartEntity(
+      items: items?.map((e) => e.toEntity()).toList() ?? [],
+      totalItems: totalItems ?? 0,
+      totalPrice: totalPrice ?? "0",
+      totalPriceWithTax: totalPriceWithTax ?? "0",
     );
   }
 }

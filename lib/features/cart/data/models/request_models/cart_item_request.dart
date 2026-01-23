@@ -10,7 +10,7 @@ class CartItemRequest {
   @JsonKey(name: "quantity")
   final int? quantity;
   @JsonKey(name: "addons")
-  final List<AddonItemRequest>? addons;
+  final List<AddonItemCart>? addons;
 
   CartItemRequest({this.productId, this.quantity, this.addons});
 

@@ -6,7 +6,6 @@ import 'package:trust_develpoment/features/cart/data/models/request_models/delet
 import 'package:trust_develpoment/features/cart/data/models/response_model/cart_response.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/add_to_cart_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_entity.dart';
-import 'package:trust_develpoment/features/cart/domain/entity/cart_item_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/repo_contract/cart_repo_contract.dart';
 
 @LazySingleton(as: CartRepository)
@@ -35,29 +34,7 @@ class CartRepositoryImpl implements CartRepository {
     final result = await remote.getCart(guestId);
 
     if (result is SuccessApiResult<CartResponse>) {
-      final data = result.data;
-
-      return SuccessApiResult(
-        data: CartEntity(
-          items:
-              data.items
-                  ?.map(
-                    (e) => CartItemEntity(
-                      productId: e.productId,
-                      nameEn: e.productName,
-                      nameAr: e.productNameAr,
-                      quantity: e.quantity,
-                      image: e.image,
-                      total: e.total,
-                    ),
-                  )
-                  .toList() ??
-              [],
-          totalItems: data.totalItems ?? 0,
-          totalPrice: data.totalPrice ?? "0",
-          totalPriceWithTax: data.totalPriceWithTax ?? "0",
-        ),
-      );
+      return SuccessApiResult(data: result.data.toEntity());
     }
 
     return ErrorApiResult(error: "Failed to load cart");

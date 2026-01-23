@@ -3,7 +3,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'addon_item_request.g.dart';
 
 @JsonSerializable()
-class AddonItemRequest {
+class AddonItemCart {
   @JsonKey(name: "id")
   final int? id;
   @JsonKey(name: "name")
@@ -11,7 +11,9 @@ class AddonItemRequest {
   @JsonKey(name: "price")
   final String? price;
 
-  AddonItemRequest({this.id, this.name, this.price});
+  AddonItemCart({this.id, this.name, this.price});
 
-  Map<String, dynamic> toJson() => _$AddonItemRequestToJson(this);
+  Map<String, dynamic> toJson() => _$AddonItemCartToJson(this);
+  factory AddonItemCart.fromJson(Map<String, dynamic> json) =>
+      _$AddonItemCartFromJson(json);
 }

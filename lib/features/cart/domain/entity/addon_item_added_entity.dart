@@ -13,7 +13,17 @@ class AddonItemAddedEntity {
 }
 
 extension AddonItemEntityMapper on AddonItemAddedEntity {
-  AddonItemRequest toRequest() {
-    return AddonItemRequest(id: id, name: name, price: price);
+  AddonItemCart toRequest() {
+    return AddonItemCart(id: id, name: name, price: price);
+  }
+}
+
+extension AddonItemCartMapper on AddonItemCart {
+  AddonItemAddedEntity toEntity() {
+    return AddonItemAddedEntity(
+      id: id ?? 0,
+      name: name ?? "",
+      price: price ?? "0",
+    );
   }
 }

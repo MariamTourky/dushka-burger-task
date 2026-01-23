@@ -45,7 +45,7 @@ class _ApiClient implements ApiClient {
           )
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options,);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -79,7 +79,7 @@ class _ApiClient implements ApiClient {
           )
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options,);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -109,7 +109,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = ProductAddonsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, );
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -137,7 +137,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = GuestIdResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, );
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -154,7 +154,7 @@ class _ApiClient implements ApiClient {
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
-            'guestcart/v1/guestid',
+            'guestcart/v1/cart',
             queryParameters: queryParameters,
             data: _data,
           )
@@ -165,7 +165,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = CartResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, _result);
+      errorLogger?.logError(e, s, _options, );
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);

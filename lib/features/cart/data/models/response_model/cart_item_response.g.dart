@@ -13,7 +13,9 @@ CartItemResponse _$CartItemResponseFromJson(Map<String, dynamic> json) =>
       productNameAr: json['product_name_ar'] as String,
       quantity: (json['quantity'] as num).toInt(),
       price: json['price'] as String,
-      addonPrice: json['addon_price'] as num,
+      addons: (json['addons'] as List<dynamic>?)
+          ?.map((e) => AddonItemCart.fromJson(e as Map<String, dynamic>))
+          .toList(),
       image: json['image'] as String,
       total: json['total'] as String,
     );
