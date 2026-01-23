@@ -8,12 +8,12 @@ import 'package:trust_develpoment/features/cart/presentation/manager/cart_state.
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_state.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/product_details_cubit/product_details_validation.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/addons_list_widget.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/custom_elevated_button.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/empty_product.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/page_header.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/product_info_widget.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/product_shimmer.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/addons_sections/addons_list_widget.dart';
+import 'package:trust_develpoment/app/core/utils/custom_elevated_button.dart';
+import 'package:trust_develpoment/app/core/utils/empty_product.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/product_details_section/product_details_header.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/product_details_section/product_info_widget.dart';
+import 'package:trust_develpoment/app/core/utils/shimmer_skeleton.dart';
 import 'package:trust_develpoment/generated/locale_keys.g.dart';
 
 class ProductDetailsPage extends StatelessWidget {
@@ -44,7 +44,7 @@ class ProductDetailsPage extends StatelessWidget {
                 ),
                 Expanded(
                   child: state.product.isLoading
-                      ? const ProductDetailsShimmer()
+                      ? const ShimmerSkeleton()
                       : state.product.data == null
                       ? const EmptyProductsWidget()
                       : ListView(
@@ -62,7 +62,7 @@ class ProductDetailsPage extends StatelessWidget {
                   onPressed: () {
                     final entity = state.toAddToCartEntity();
                     context.read<CartCubit>().addToCart(entity);
-                    context.push(RouteName.viewCart);
+                    context.push(RouteName.cartPage);
                   },
                 ),
               ],

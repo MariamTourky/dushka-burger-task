@@ -13,7 +13,7 @@ class CategoriesCubit extends Cubit<CategoriesState> {
   CategoriesCubit(this.useCase) : super(CategoriesState.initial());
 
   Future<void> fetchCategories() async {
-    emit(state.copyWith(categories: Resource.loading()));
+    emit(state.copyWith(categories: BaseState.loading()));
 
     final result = await useCase.call();
 
@@ -24,14 +24,14 @@ class CategoriesCubit extends Cubit<CategoriesState> {
 
       emit(
         state.copyWith(
-          categories: Resource.success(result.data),
+          categories: BaseState.success(result.data),
           selectedCategoryId: firstCategoryId,
         ),
       );
     } else if (result is ErrorApiResult<List<CategoryEntity>>) {
-      emit(state.copyWith(categories: Resource.error(result.error)));
+      emit(state.copyWith(categories: BaseState.error(result.error)));
     } else {
-      emit(state.copyWith(categories: Resource.error("Unknown error")));
+      emit(state.copyWith(categories: BaseState.error("Unknown error")));
     }
   }
 

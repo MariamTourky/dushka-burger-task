@@ -4,8 +4,8 @@ import 'package:trust_develpoment/features/categories/domain/entity_model/addons
 import 'package:trust_develpoment/features/categories/domain/entity_model/product_entity.dart';
 
 class ProductDetailsState extends Equatable {
-  final Resource<ProductEntity> product;
-  final Resource<List<AddonBlockEntity>> addons;
+  final BaseState<ProductEntity> product;
+  final BaseState<List<AddonBlockEntity>> addons;
   final int quantity;
   final Map<int, int?> selectedOptions;
 
@@ -17,15 +17,15 @@ class ProductDetailsState extends Equatable {
   });
 
   factory ProductDetailsState.initial() => ProductDetailsState(
-    product: Resource.initial(),
-    addons: Resource.initial(),
+    product: BaseState.initial(),
+    addons: BaseState.initial(),
     quantity: 0,
     selectedOptions: {},
   );
 
   ProductDetailsState copyWith({
-    Resource<ProductEntity>? product,
-    Resource<List<AddonBlockEntity>>? addons,
+    BaseState<ProductEntity>? product,
+    BaseState<List<AddonBlockEntity>>? addons,
     int? quantity,
     Map<int, int?>? selectedOptions,
   }) {

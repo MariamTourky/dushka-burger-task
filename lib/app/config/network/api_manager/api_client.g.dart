@@ -45,7 +45,7 @@ class _ApiClient implements ApiClient {
           )
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options,);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -79,7 +79,7 @@ class _ApiClient implements ApiClient {
           )
           .toList();
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options,);
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -109,7 +109,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = ProductAddonsResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, );
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -137,7 +137,7 @@ class _ApiClient implements ApiClient {
     try {
       _value = GuestIdResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, );
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);
@@ -145,12 +145,12 @@ class _ApiClient implements ApiClient {
   }
 
   @override
-  Future<HttpResponse<CartResponse>> getCart(String guestId) async {
+  Future<HttpResponse<CartGetResponse>> getCart(String guestId) async {
     final _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{r'guest_id': guestId};
     final _headers = <String, dynamic>{};
     const Map<String, dynamic>? _data = null;
-    final _options = _setStreamType<HttpResponse<CartResponse>>(
+    final _options = _setStreamType<HttpResponse<CartGetResponse>>(
       Options(method: 'GET', headers: _headers, extra: _extra)
           .compose(
             _dio.options,
@@ -161,11 +161,11 @@ class _ApiClient implements ApiClient {
           .copyWith(baseUrl: _combineBaseUrls(_dio.options.baseUrl, baseUrl)),
     );
     final _result = await _dio.fetch<Map<String, dynamic>>(_options);
-    late CartResponse _value;
+    late CartGetResponse _value;
     try {
-      _value = CartResponse.fromJson(_result.data!);
+      _value = CartGetResponse.fromJson(_result.data!);
     } on Object catch (e, s) {
-      errorLogger?.logError(e, s, _options, );
+      errorLogger?.logError(e, s, _options, response: _result);
       rethrow;
     }
     final httpResponse = HttpResponse(_value, _result);

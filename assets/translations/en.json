@@ -14,5 +14,7 @@
   "payment_details": "Payment Details",
   "total_price": "Total Price",
   "taxes": "Taxes",
-  "grand_total": "Grand Total"
+  "grand_total": "Grand Total",
+  "total_price_with_tax": "Total Price With Tax",
+
 }

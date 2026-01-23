@@ -26,30 +26,30 @@ class ProductDetailsCubit extends Cubit<ProductDetailsState> {
   }
 
   Future<void> fetchProductDetails(int productId) async {
-    emit(state.copyWith(product: Resource.loading()));
+    emit(state.copyWith(product: BaseState.loading()));
 
     final result = await getProductDetails(productId);
 
     if (result is SuccessApiResult<ProductEntity>) {
-      emit(state.copyWith(product: Resource.success(result.data)));
+      emit(state.copyWith(product: BaseState.success(result.data)));
     } else if (result is ErrorApiResult<ProductEntity>) {
-      emit(state.copyWith(product: Resource.error(result.error)));
+      emit(state.copyWith(product: BaseState.error(result.error)));
     } else {
-      emit(state.copyWith(product: Resource.error("Unknown error")));
+      emit(state.copyWith(product: BaseState.error("Unknown error")));
     }
   }
 
   Future<void> fetchProductAddons(int productId) async {
-    emit(state.copyWith(addons: Resource.loading()));
+    emit(state.copyWith(addons: BaseState.loading()));
 
     final result = await getProductAddons(productId);
 
     if (result is SuccessApiResult<List<AddonBlockEntity>>) {
-      emit(state.copyWith(addons: Resource.success(result.data)));
+      emit(state.copyWith(addons: BaseState.success(result.data)));
     } else if (result is ErrorApiResult<List<AddonBlockEntity>>) {
-      emit(state.copyWith(addons: Resource.error(result.error)));
+      emit(state.copyWith(addons: BaseState.error(result.error)));
     } else {
-      emit(state.copyWith(addons: Resource.error("Unknown error")));
+      emit(state.copyWith(addons: BaseState.error("Unknown error")));
     }
   }
 

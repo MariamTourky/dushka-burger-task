@@ -4,14 +4,14 @@ import 'package:trust_develpoment/app/core/ui_helper/color/colors.dart';
 class BadgeContainer extends StatelessWidget {
   final int itemCount;
 
-  const BadgeContainer({super.key, required this.itemCount}); // remove const
+  const BadgeContainer({super.key, required this.itemCount});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.all(6),
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: AppColors.surface,
         shape: BoxShape.circle,
         border: Border.all(color: AppColors.darkRed, width: 2),
       ),

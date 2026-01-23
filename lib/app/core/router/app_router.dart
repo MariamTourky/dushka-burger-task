@@ -1,4 +1,3 @@
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:trust_develpoment/app/config/di/di_config/di.dart';
@@ -10,10 +9,10 @@ import 'package:trust_develpoment/features/categories/presentation/pages/categor
 import 'package:trust_develpoment/features/categories/presentation/pages/product_details_page.dart';
 
 final GoRouter appRouter = GoRouter(
-  initialLocation: RouteName.categories,
+  initialLocation: RouteName.categoriesPage,
   routes: [
     GoRoute(
-      path: RouteName.categories,
+      path: RouteName.categoriesPage,
       builder: (context, state) {
         return BlocProvider(
           create: (_) => getIt<CategoriesCubit>()..fetchCategories(),
@@ -22,26 +21,22 @@ final GoRouter appRouter = GoRouter(
       },
     ),
     GoRoute(
-      path: RouteName.productDetails,
+      path: RouteName.productDetailsPage,
       builder: (context, state) {
-        final productId = int.tryParse(state.uri.queryParameters['id'] ?? '');
-        if (productId == null) return const SizedBox();
-
-        final initialQuantity =
-            int.tryParse(state.uri.queryParameters['quantity'] ?? '0') ?? 0;
-
+        final productId = int.parse(state.uri.queryParameters['id']!);
+        final quantityArg = state.extra as int? ?? 0;
         return BlocProvider(
           create: (_) =>
               getIt<ProductDetailsCubit>()
-                ..loadProduct(productId, initialQuantity: initialQuantity),
+                ..loadProduct(productId, initialQuantity: quantityArg),
           child: ProductDetailsPage(
             productId: productId,
-            initialQuantity: initialQuantity,
+            initialQuantity: quantityArg,
           ),
         );
       },
     ),
 
-    GoRoute(path: RouteName.viewCart, builder: (_, _) => const CartPage()),
+    GoRoute(path: RouteName.cartPage, builder: (_, _) => const CartPage()),
   ],
 );

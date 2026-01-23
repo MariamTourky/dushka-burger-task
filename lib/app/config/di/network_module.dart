@@ -3,7 +3,6 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 import 'package:pretty_dio_logger/pretty_dio_logger.dart';
 import 'package:trust_develpoment/app/config/network/api_manager/api_client.dart';
-import 'package:trust_develpoment/app/config/network/interceptor.dart';
 import 'package:trust_develpoment/app/config/storage/guest_cart_storage.dart';
 import 'package:trust_develpoment/app/core/values/app_endpoint_strings.dart';
 
@@ -16,7 +15,7 @@ abstract class NetworkModule {
   GuestCartStorage guestCartStorage() => GuestCartStorage();
 
   @lazySingleton
-  Dio dio(AppInterceptor interceptor) {
+  Dio dio() {
     final basicAuth = base64Encode(utf8.encode('$_username:$_password'));
     final dio = Dio(
       BaseOptions(
@@ -24,23 +23,10 @@ abstract class NetworkModule {
         headers: {'Authorization': 'Basic $basicAuth'},
       ),
     );
-
-    dio.interceptors.add(interceptor);
     dio.interceptors.add(
-      PrettyDioLogger(
-        requestHeader: true,
-        requestBody: true,
-        responseBody: true,
-        error: true,
-        compact: true,
-      ),
+      PrettyDioLogger(requestHeader: true, error: true, compact: true),
     );
     return dio;
-  }
-
-  @lazySingleton
-  AppInterceptor interceptor(GuestCartStorage storage) {
-    return AppInterceptor(storage);
   }
 
   @lazySingleton

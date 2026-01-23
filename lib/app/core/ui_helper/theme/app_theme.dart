@@ -9,29 +9,6 @@ class AppTheme {
     useMaterial3: true,
     scaffoldBackgroundColor: AppColors.appBackground,
 
-    colorScheme: ColorScheme.fromSeed(
-      seedColor: AppColors.primaryRed,
-      primary: AppColors.primaryRed,
-      error: AppColors.error,
-    ),
-
-    // AppBar
-    appBarTheme: const AppBarTheme(
-      backgroundColor: AppColors.appBackground,
-      elevation: 0,
-      centerTitle: true,
-      iconTheme: IconThemeData(color: AppColors.textPrimary),
-      titleTextStyle: AppTextStyles.headlineMedium,
-    ),
-
-    // Cards
-    cardTheme: CardThemeData(
-      color: AppColors.surface,
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-    ),
-
-    // Buttons
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
         backgroundColor: WidgetStateProperty.resolveWith<Color>((states) {
@@ -48,41 +25,32 @@ class AppTheme {
       ),
     ),
 
-    // Bottom Navigation
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
       selectedItemColor: AppColors.darkRed,
-      unselectedItemColor: AppColors.textSecondary,
+      unselectedItemColor: AppColors.gray,
       backgroundColor: AppColors.appBackground,
       type: BottomNavigationBarType.fixed,
       showSelectedLabels: true,
       showUnselectedLabels: true,
     ),
+
     inputDecorationTheme: InputDecorationTheme(
       floatingLabelBehavior: FloatingLabelBehavior.always,
-      labelStyle: const TextStyle(color: AppColors.textSecondary),
-      hintStyle: const TextStyle(color: AppColors.textSecondary),
+      labelStyle: const TextStyle(color: AppColors.gray),
+      hintStyle: const TextStyle(color: AppColors.gray),
       contentPadding: const EdgeInsets.symmetric(vertical: 18, horizontal: 12),
       filled: true,
       fillColor: Colors.white,
-      errorStyle: const TextStyle(color: AppColors.error, height: 1.3),
-      enabledBorder: _border(AppColors.primaryRed),
-      focusedBorder: _border(AppColors.primaryRed),
+      errorStyle: const TextStyle(color: AppColors.darkRed, height: 1.3),
+      enabledBorder: _border(AppColors.darkRed),
+      focusedBorder: _border(AppColors.darkRed),
       errorBorder: _border(Colors.red),
       focusedErrorBorder: _border(Colors.red),
     ),
-    // Dividers
+
     dividerTheme: const DividerThemeData(
       color: AppColors.divider,
       thickness: 5,
-    ),
-
-    // Text
-    textTheme: const TextTheme(
-      headlineLarge: AppTextStyles.headlineLarge,
-      headlineMedium: AppTextStyles.headlineMedium,
-      titleMedium: AppTextStyles.title,
-      bodyMedium: AppTextStyles.body,
-      bodySmall: AppTextStyles.caption,
     ),
   );
 

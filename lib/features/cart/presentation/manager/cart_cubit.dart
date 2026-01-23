@@ -3,6 +3,7 @@ import 'package:injectable/injectable.dart';
 import 'package:trust_develpoment/app/config/base_state/base_state.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/add_to_cart_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/entity/cart_entity.dart';
+import 'package:trust_develpoment/features/cart/domain/entity/get_cart_item_entity.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/add_to_cart_usecase.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/delete_from_cart_usecase.dart';
 import 'package:trust_develpoment/features/cart/domain/usecase/get_cart_usecase.dart';
@@ -24,19 +25,35 @@ class CartCubit extends Cubit<CartState> {
 
   Future<void> initCart() async {
     await getGuestId();
-    await refreshCart();
+    await fetchCartFromServer();
   }
 
-  Future<void> refreshCart() async {
-    emit(state.copyWith(cart: Resource.loading()));
-
+  Future<void> fetchCartFromServer() async {
+    emit(state.copyWith(cart: BaseState.loading()));
     final result = await getCart();
     if (result is SuccessApiResult<CartEntity>) {
-      emit(state.copyWith(cart: Resource.success(result.data)));
+      emit(state.copyWith(cart: BaseState.success(result.data)));
+    } else {
+      emit(state.copyWith(cart: BaseState.error("Failed to load cart")));
     }
   }
 
-  /// 🔥 OPTIMISTIC DELETE
+  CartEntity _recalculateTotals(CartEntity cart) {
+    final totalItems = cart.items.fold<int>(0, (sum, i) => sum + i.quantity);
+    final totalPrice = cart.items.fold<double>(
+      0.0,
+      (sum, i) => sum + (double.tryParse(i.total) ?? 0.0),
+    );
+
+    final totalPriceWithTax = totalPrice * 1.14;
+
+    return cart.copyWith(
+      totalItems: totalItems,
+      totalPrice: totalPrice.toStringAsFixed(2),
+      totalPriceWithTax: totalPriceWithTax.toStringAsFixed(2),
+    );
+  }
+
   Future<void> removeItem({required int productId, int quantity = 1}) async {
     final currentCart = state.cart.data;
     if (currentCart == null) return;
@@ -52,24 +69,24 @@ class CartCubit extends Cubit<CartState> {
         .where((item) => item.quantity > 0)
         .toList();
 
-    final updatedCart = currentCart.copyWith(items: updatedItems);
+    emit(
+      state.copyWith(
+        cart: BaseState.success(
+          _recalculateTotals(currentCart.copyWith(items: updatedItems)),
+        ),
+      ),
+    );
 
-    /// ✅ update UI immediately
-    emit(state.copyWith(cart: Resource.success(updatedCart)));
-
-    /// call API
     final result = await deleteFromCart(
       productId: productId,
       quantity: quantity,
     );
 
-    /// optional: resync
     if (result is! SuccessApiResult) {
-      await refreshCart();
+      await fetchCartFromServer();
     }
   }
 
-  /// 🔥 OPTIMISTIC ADD
   Future<void> addItem(AddToCartEntity entity) async {
     final currentCart = state.cart.data;
 
@@ -80,22 +97,36 @@ class CartCubit extends Cubit<CartState> {
         final index = items.indexWhere((e) => e.productId == newItem.productId);
 
         if (index != -1) {
+          // Item exists, increment quantity
           items[index] = items[index].copyWith(
             quantity: items[index].quantity + newItem.quantity,
+          );
+        } else {
+          // New item, add to list
+          items.add(
+            GetCartItemEntity(
+              productId: newItem.productId,
+              productName: '',
+              productNameAr: '',
+              quantity: newItem.quantity,
+              price: '0',
+              addons: newItem.addons,
+              image: '',
+              total: '0',
+            ),
           );
         }
       }
 
       emit(
         state.copyWith(
-          cart: Resource.success(currentCart.copyWith(items: items)),
+          cart: BaseState.success(
+            _recalculateTotals(currentCart.copyWith(items: items)),
+          ),
         ),
       );
     }
 
-    final result = await addToCart(entity);
-    if (result is! SuccessApiResult) {
-      await refreshCart();
-    }
+    await fetchCartFromServer();
   }
 }

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:trust_develpoment/app/core/utils/app_list_shimmer.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/shimmer_list.dart';
 import 'package:trust_develpoment/features/cart/presentation/manager/cart_cubit.dart';
 import 'package:trust_develpoment/features/cart/presentation/manager/cart_state.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_cubit.dart';
 import 'package:trust_develpoment/features/categories/presentation/manager/categories_cubit/categories_state.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/cart_floating_button.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/category_list.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/custom_navigation_bar.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/empty_product.dart';
-import 'package:trust_develpoment/features/categories/presentation/widgets/product_list.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/cart_button.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/categories_sections/category_list.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/categories_sections/custom_navigation_bar.dart';
+import 'package:trust_develpoment/app/core/utils/empty_product.dart';
+import 'package:trust_develpoment/features/categories/presentation/widgets/product_details_section/product_list.dart';
 
 class CategoriesPage extends StatelessWidget {
   const CategoriesPage({super.key});
@@ -58,7 +58,7 @@ class CategoriesPage extends StatelessWidget {
             floatingActionButton: BlocBuilder<CartCubit, CartState>(
               builder: (context, state) {
                 final itemCount = state.itemCount;
-                return CartFloatingButton(itemCount: itemCount);
+                return CartButton(itemCount: itemCount);
               },
             ),
             floatingActionButtonLocation:

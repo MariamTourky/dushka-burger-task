@@ -1,5 +1,3 @@
-import 'package:trust_develpoment/features/cart/data/models/request_models/addon_item_request.dart';
-
 class AddonItemAddedEntity {
   final int id;
   final String name;
@@ -12,18 +10,15 @@ class AddonItemAddedEntity {
   });
 }
 
-extension AddonItemEntityMapper on AddonItemAddedEntity {
-  AddonItemCart toRequest() {
-    return AddonItemCart(id: id, name: name, price: price);
-  }
-}
+extension AddonItemAddedEntityText on List<AddonItemAddedEntity> {
+  String toDisplayText() {
+    if (isEmpty) return '';
 
-extension AddonItemCartMapper on AddonItemCart {
-  AddonItemAddedEntity toEntity() {
-    return AddonItemAddedEntity(
-      id: id ?? 0,
-      name: name ?? "",
-      price: price ?? "0",
-    );
+    return map((addon) {
+      if (addon.price.isEmpty || addon.price == '0') {
+        return addon.name;
+      }
+      return '${addon.name} (+${addon.price})';
+    }).join(', ');
   }
 }

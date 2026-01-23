@@ -14,5 +14,7 @@
   "payment_details": "تفاصيل الدفع",
   "total_price": "السعر الإجمالي",
   "taxes": "الضرائب",
-  "grand_total": "المبلغ الإجمالي"
+  "grand_total": "المبلغ الإجمالي",
+  "total_price_with_tax":"السعر الإجمالي بعد الضرائب ",
+
 }

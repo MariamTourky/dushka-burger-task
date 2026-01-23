@@ -28,7 +28,7 @@ class AppTextStyles {
   static const TextStyle body = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.normal,
-    color: AppColors.textSecondary,
+    color: AppColors.gray,
   );
 
   static const TextStyle bodyBold = TextStyle(
@@ -41,13 +41,13 @@ class AppTextStyles {
   static const TextStyle price = TextStyle(
     fontSize: 16,
     fontWeight: FontWeight.bold,
-    color: AppColors.primaryRed,
+    color: AppColors.darkRed,
   );
 
   static const TextStyle priceSmall = TextStyle(
     fontSize: 14,
     fontWeight: FontWeight.w600,
-    color: AppColors.primaryRed,
+    color: AppColors.darkRed,
   );
 
   // Buttons
@@ -61,6 +61,6 @@ class AppTextStyles {
   static const TextStyle caption = TextStyle(
     fontSize: 12,
     fontWeight: FontWeight.normal,
-    color: AppColors.textSecondary,
+    color: AppColors.gray,
   );
 }

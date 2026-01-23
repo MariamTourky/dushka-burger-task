@@ -4,13 +4,15 @@ import 'package:trust_develpoment/features/categories/domain/entity_model/catego
 import 'package:trust_develpoment/features/categories/domain/entity_model/product_entity.dart';
 
 class CategoriesState extends Equatable {
-  final Resource<List<CategoryEntity>> categories;
+  final BaseState<List<CategoryEntity>> categories;
   final int? selectedCategoryId;
 
   const CategoriesState({required this.categories, this.selectedCategoryId});
 
-  factory CategoriesState.initial() =>
-      CategoriesState(categories: Resource.initial(), selectedCategoryId: null);
+  factory CategoriesState.initial() => CategoriesState(
+    categories: BaseState.initial(),
+    selectedCategoryId: null,
+  );
 
   List<ProductEntity>? get selectedProducts {
     final selectedCategory = categories.data?.firstWhere(
@@ -21,7 +23,7 @@ class CategoriesState extends Equatable {
   }
 
   CategoriesState copyWith({
-    Resource<List<CategoryEntity>>? categories,
+    BaseState<List<CategoryEntity>>? categories,
     int? selectedCategoryId,
   }) {
     return CategoriesState(

@@ -12,9 +12,4 @@ class GuestCartStorage {
     final prefs = await SharedPreferences.getInstance();
     return prefs.getString(_keyGuestId);
   }
-
-  Future<void> clearGuestId() async {
-    final prefs = await SharedPreferences.getInstance();
-    await prefs.remove(_keyGuestId);
-  }
 }
