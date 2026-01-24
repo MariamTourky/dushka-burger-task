@@ -50,21 +50,12 @@ git clone https://github.com/your-username/trust_development.git
 2. Install dependencies:
 flutter pub get
 
-
 3. Generate JSON & Retrofit code:
 flutter pub run build_runner build --delete-conflicting-outputs
-
 
 4. Run the app:
 flutter run
 
-## Screenshots
-Categories Screen Loading [assets/screenshots/loading category page.jpeg]
-Categories Screen [assets/screenshots/category page.jpeg]
-Product Details Loading [assets/screenshots/loading product details page.jpeg]
-Product Details Screen [assets/screenshots/product details page.jpeg]
-Product Details Page With Choosen Item [assets/screenshots/product details page with choosen item.jpeg]
-Cart Screen[assets/screenshots/cart page.jpeg]
 
 ## Architecture Overview
 
@@ -173,6 +164,27 @@ This keeps:
 ✔ Feature isolation  
 ✔ Business logic independent of UI  
 ✔ Backend changes do not break UI
+
+## Screenshots
+
+### Categories Screen (Loading)
+![Categories Loading](assets/screenshots/loading_category_page.jpeg)
+
+### Categories Screen
+![Categories Screen](assets/screenshots/category_page.jpeg)
+
+### Product Details (Loading)
+![Product Details Loading](assets/screenshots/loading_product_details_page.jpeg)
+
+### Product Details Screen
+![Product Details Screen](assets/screenshots/product_details_page.jpeg)
+
+### Product Details With Selected Item
+![Product Details Selected](assets/screenshots/product_details_page_with_chosen_item.jpeg)
+
+### Cart Screen
+![Cart Screen](assets/screenshots/cart_page.jpeg)
+
 
 
 ## Usage
